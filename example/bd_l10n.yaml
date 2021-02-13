@@ -1,0 +1,11 @@
+project-type: flutter
+features:
+  - name: 'Application Feature'
+    translation-dir: lib/translation/application
+    translation-template: application_en.arb
+    output-dir: lib/localization/application
+
+  - name: 'Authentication Feature'
+    translation-dir: lib/translation/authentication
+    translation-template: authentication_en.arb
+    output-dir: lib/localization/authentication

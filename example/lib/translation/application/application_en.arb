@@ -1,0 +1,24 @@
+{
+  "@@locale": "en",
+
+  "applicationTitle": "Flutter BD_L10n Demo App",
+  "@applicationTitle": {
+    "description": "The title of the application",
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "homeDescription": "You have pushed the button this many times:",
+  "@homeDescription": {
+    "description": "Home page description",
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "incrementButton": "Increment",
+  "@incrementButton": {
+    "description": "The increment button text",
+    "type": "text",
+    "placeholders": {}
+  }
+}

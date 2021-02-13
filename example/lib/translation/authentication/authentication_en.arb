@@ -1,0 +1,24 @@
+{
+  "@@locale": "en",
+
+  "loginButton": "Login",
+  "@loginButton": {
+    "description": "The text on the login button.",
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "userNameField": "Please enter the user name.",
+  "@userNameField": {
+    "description": "The text on the username field.",
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "passwordField": "Please enter the password",
+  "@passwordField": {
+    "description": "The text on the password field.",
+    "type": "text",
+    "placeholders": {}
+  }
+}

@@ -1,0 +1,12 @@
+project-type: flutter
+features:
+  - name: 'ContactUs'
+    translation-dir: lib/translation
+    translation-template: app_en.arb
+    output-dir: lib/out
+
+  - name: 'Authentication'
+    use-deferred-loading: true
+    translation-dir: lib/translation/authentication
+    translation-template: authenticatioon_en.arb
+    output-dir: lib/out

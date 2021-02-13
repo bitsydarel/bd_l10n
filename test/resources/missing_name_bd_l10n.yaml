@@ -1,0 +1,3 @@
+features:
+  - translation-dir: lib/translation
+    translation-template: global_app.arb

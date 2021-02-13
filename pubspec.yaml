@@ -1,0 +1,29 @@
+name: bd_l10n
+description: Tools that help manage localization for a dart/flutter application.
+version: 1.0.0
+homepage: https://github.com/bitsydarel/bd_l10n
+repository: https://github.com/bitsydarel/bd_l10n
+issue_tracker: https://github.com/bitsydarel/bd_l10n/issues
+
+environment:
+  sdk: '>=2.10.0 <3.0.0'
+
+dependencies:
+  json_annotation: ^3.1.1 # Allow to generate json conversion from annotation.
+  watcher: ^0.9.7+15 # Provide classes to implement file/directory watching.
+  build: ^1.6.2 # provider builder capabilities.
+  build_config: ^0.4.4
+  args: ^1.6.0 # provide ability to parse command line arguments.
+  yaml: ^2.2.1 # provide ability to parse yaml file.
+  meta: ^1.2.4 # Provide metadata annotation that help make code intention more clear.
+  path: ^1.7.0 # provide utility method to work with path
+  io: ^0.3.4
+
+dev_dependencies:
+  flutter_code_style: ^2.0.2 # project code style.
+  json_serializable: ^3.5.1 # create json conversion utility.
+  build_runner: ^1.11.1
+  test: ^1.14.4
+
+executables:
+  bd_l10n:

@@ -1,0 +1,6 @@
+{
+  "@@locale": "es",
+  "applicationTitle": "Flutter BD_L10n Demo App",
+  "homeDescription": "Has pulsado el botón tantas veces:",
+  "incrementButton": "Incremento"
+}

@@ -1,0 +1,3 @@
+features:
+  - name: 'Contact Us'
+    translation-template: global_app.arb

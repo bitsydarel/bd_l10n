@@ -1,0 +1,7 @@
+builders:
+  bd_l10n:
+    import: 'package:bd_l10n/bd_l10n.dart'
+    builder_factories: [ 'bdL10nToBuilder' ]
+    build_extensions: { '.yaml': [ '.log' ] }
+    auto_apply: dependents
+    build_to: cache
