@@ -243,7 +243,7 @@ class FileLocalizationWatcher extends LocalizationWatcher {
   }
 
   void _onWatcherEmpty(final File logFile) {
-    final String errorWatcher = 'No translation directory/template left to '
+    const String errorWatcher = 'No translation directory/template left to '
         'watch, but watch stop was not requested, exiting $utilityName';
 
     _writeToFile(logFile, errorWatcher);
