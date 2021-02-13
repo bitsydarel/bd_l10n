@@ -1,16 +1,21 @@
 # flutter_demo
 
-Demo for automatic translation
+Demo for bd_l10n automatic translation tool
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Inside the example directory build the example code using build runner or command line.
 
-A few resources to get you started if this is your first Flutter project:
+Command line:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```shell
+flutter pub run bd_l10n --config-file bd_l10n.yaml .
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials, samples, guidance on mobile development, and a
-full API reference.
+Build runner:
+
+```shell
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+Then uncomment the code in the main.dart file, after that you can run the app and explore it.
