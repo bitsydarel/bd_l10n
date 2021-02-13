@@ -130,4 +130,7 @@ features: # list of features used in the project, a project must have at least o
     use-deferred-loading: true # enabled deferred loading of localizations, this is mainly for web at the moment.
 ```
 
+
+You can find native binaries of the tool [here](https://github.com/bitsydarel/bd_l10n/releases).
+
 [license](https://github.com/bitsydarel/bd_l10n/blob/master/LICENSE).
