@@ -32,7 +32,7 @@ Or
 
 ```dart
 
-final commonAuthentication = Authentication.of(context);
+final authenticationLocalization = Authentication.of(context);
 ```
 
 Or
