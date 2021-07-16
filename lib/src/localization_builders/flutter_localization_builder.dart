@@ -7,12 +7,13 @@
 
 import 'dart:io';
 
-import 'package:bd_l10n/src/localization_builder.dart';
 import 'package:bd_l10n/src/configuration.dart';
 import 'package:bd_l10n/src/feature_configuration.dart';
+import 'package:bd_l10n/src/localization_builder.dart';
 import 'package:bd_l10n/src/name_formatter.dart';
 import 'package:bd_l10n/src/utils.dart';
 import 'package:io/io.dart';
+import 'package:path/path.dart' as path;
 
 /// [LocalizationBuilder] for flutter project.
 class FlutterLocalizationBuilder extends LocalizationBuilder {
@@ -47,10 +48,10 @@ class FlutterLocalizationBuilder extends LocalizationBuilder {
         '--template-arb-file',
         feature.translationTemplateFileName,
         '--arb-dir',
-        feature.translationDirPath,
+        path.join(configuration.projectDirPath, feature.translationDirPath),
         '--no-synthetic-package',
         '--output-dir',
-        feature.outputDirPath,
+        path.join(configuration.projectDirPath, feature.outputDirPath),
         '--output-localization-file',
         localizationFileName,
         '--output-class',
