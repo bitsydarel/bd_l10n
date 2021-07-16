@@ -55,7 +55,7 @@ final ArgParser argumentParser = ArgParser()
   );
 
 /// Print help message to the console.
-void printHelpMessage([final String message]) {
+void printHelpMessage([final String? message]) {
   if (message != null) {
     stderr.writeln(red.wrap('$message\n'));
   }

@@ -14,9 +14,9 @@ import 'package:bd_l10n/src/utils.dart';
 import 'package:build/build.dart';
 import 'package:path/path.dart' as path;
 
-export 'package:bd_l10n/src/utils.dart';
 export 'package:bd_l10n/src/configuration.dart';
 export 'package:bd_l10n/src/localization_watcher.dart';
+export 'package:bd_l10n/src/utils.dart';
 
 /// Top level function to create code generation builder.
 Builder bdL10nToBuilder(BuilderOptions options) => _BDL10n();
@@ -31,7 +31,7 @@ class _BDL10n extends Builder {
 
   @override
   FutureOr<void> build(final BuildStep buildStep) {
-    final String configFilePath = _foundConfigFile();
+    final String? configFilePath = _foundConfigFile();
 
     if (configFilePath == null) {
       log.warning(
@@ -77,7 +77,7 @@ class _BDL10n extends Builder {
     }
   }
 
-  static String _foundConfigFile() {
+  static String? _foundConfigFile() {
     final List<FileSystemEntity> entities =
         Directory.current.listSync(recursive: true);
 

@@ -7,12 +7,11 @@
 
 import 'dart:io';
 
+import 'package:bd_l10n/src/feature_configuration.dart';
 import 'package:bd_l10n/src/utils.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
-import 'package:yaml/yaml.dart';
 import 'package:path/path.dart' as path;
-import 'package:bd_l10n/src/feature_configuration.dart';
+import 'package:yaml/yaml.dart';
 
 part 'configuration.g.dart';
 
@@ -21,7 +20,6 @@ part 'configuration.g.dart';
   anyMap: true,
   disallowUnrecognizedKeys: true,
   checked: true,
-  nullable: false,
 )
 class Configuration {
   /// Project type that [utilityName] is being used for.
@@ -29,7 +27,12 @@ class Configuration {
   final ProjectType projectType;
 
   /// Project dir path of this [utilityName].
-  @JsonKey(name: 'project-dir-path', disallowNullValue: true, required: false)
+  @JsonKey(
+    name: 'project-dir-path',
+    disallowNullValue: true,
+    required: false,
+    includeIfNull: false,
+  )
   final String projectDirPath;
 
   /// Localization Features used in this project.
@@ -39,27 +42,20 @@ class Configuration {
   /// Create a [Configuration] with the [projectType] list of [features] and
   /// [projectDirPath].
   Configuration({
-    @required this.projectType,
-    @required this.features,
-    String projectDirPath,
+    required this.projectType,
+    required this.features,
+    String? projectDirPath,
   }) : projectDirPath = projectDirPath ?? Directory.current.path {
-    if (projectType == null) {
+    if (this.projectDirPath.trim().isEmpty == true ||
+        !Directory(this.projectDirPath).existsSync()) {
       throw ArgumentError.value(
-        projectType,
-        'project type',
-        'Need to be specified',
-      );
-    }
-
-    if (this.projectDirPath == null || this.projectDirPath.isEmpty == true) {
-      throw ArgumentError.value(
-        projectDirPath,
+        this.projectDirPath,
         'Project dir path',
-        'Need to be specified',
+        'Not specified or does not exist',
       );
     }
 
-    if (features == null || features.isEmpty == true) {
+    if (features.isEmpty == true) {
       throw ArgumentError.value(
         features,
         'features',
@@ -71,7 +67,7 @@ class Configuration {
   /// Create a [Configuration] from [yamlFile].
   factory Configuration.fromYaml(
     final File yamlFile, {
-    String projectDirPath,
+    String? projectDirPath,
   }) {
     final String yamlPath = yamlFile.path;
 
@@ -86,13 +82,13 @@ class Configuration {
     }
 
     try {
-      final Object parseYamlContent = loadYaml(
+      final Object? parseYamlContent = loadYaml(
         yamlContent,
-        sourceUrl: yamlPath,
+        sourceUrl: Uri.parse(yamlPath),
       );
 
       final Configuration configuration = Configuration.fromJson(
-        parseYamlContent is Map
+        parseYamlContent is Map<Object?, Object?>
             ? parseYamlContent
             : throw ArgumentError('Config file content is invalid'),
       );
@@ -106,7 +102,7 @@ class Configuration {
       final List<String> errorMessage = <String>[
         if (e.className != null) 'Could not create `${e.className}`.',
         if (e.key != null) 'There is a problem with "${e.key}".',
-        if (e.message != null) e.message
+        if (e.message != null) e.message!
       ];
 
       throw ArgumentError(errorMessage.join('\n'));
@@ -115,15 +111,20 @@ class Configuration {
     }
   }
 
+//
   /// Create [Configuration] from [json] representation.
-  factory Configuration.fromJson(Map<Object, Object> json) =>
-      _$ConfigurationFromJson(json);
+  factory Configuration.fromJson(Map<Object?, Object?> json) {
+    return _$ConfigurationFromJson(json);
+  }
 
   /// Convert [Configuration] to a json representation.
-  Map<String, dynamic> toJson() => _$ConfigurationToJson(this);
+  Map<Object?, Object?> toJson() => _$ConfigurationToJson(this);
 
   @override
-  String toString() => 'Configuration: ${toJson()}';
+  String toString() {
+    return 'Configuration{projectType: $projectType, '
+        'projectDirPath: $projectDirPath, features: $features}';
+  }
 }
 
 /// List of project type supported by [utilityName].
