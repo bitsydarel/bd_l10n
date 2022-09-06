@@ -7,3 +7,9 @@
 - Added support for dart 2.12+.
 - Added support for null-safe.
 - Added support to run the tool on different directories.
+
+## 1.2.1
+
+- Run localization Process in a shell under Windows
+- Updated Android build config for example
+- Fix test name to conform with Flutter standard

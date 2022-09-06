@@ -58,6 +58,7 @@ class FlutterLocalizationBuilder extends LocalizationBuilder {
         localizationClassName,
         if (feature.useDeferredLoading) '--use-deferred-loading'
       ],
+      runInShell: Platform.isWindows,
     );
 
     final String errorMessage = result.stderr.toString();
