@@ -55,9 +55,10 @@ class _BDL10n extends Builder {
             'bd_l10n',
             '--$configFileArgument',
             configFile.path,
+            '--no-file-watcher',
             '.',
           ],
-          runInShell: true,
+          runInShell: Platform.isWindows,
           mode: ProcessStartMode.detached,
         );
 

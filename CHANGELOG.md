@@ -13,3 +13,8 @@
 - Run localization Process in a shell under Windows
 - Updated Android build config for example
 - Fix test name to conform with Flutter standard
+
+## 1.3.0
+
+- Added support for dart 3.0.0
+- Added support for translation in lib folder.

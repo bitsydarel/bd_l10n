@@ -29,11 +29,13 @@ Configuration _$ConfigurationFromJson(Map json) => $checkedCreate(
         );
         final val = Configuration(
           projectType: $checkedConvert(
-              'project-type', (v) => _$enumDecode(_$ProjectTypeEnumMap, v)),
+              'project-type', (v) => $enumDecode(_$ProjectTypeEnumMap, v)),
           features: $checkedConvert(
               'features',
               (v) => (v as List<dynamic>)
-                  .map((e) => FeatureConfiguration.fromJson(e as Map))
+                  .map((e) => FeatureConfiguration.fromJson((e as Map).map(
+                        (k, e) => MapEntry(k as Object, e as Object),
+                      )))
                   .toList()),
           projectDirPath:
               $checkedConvert('project-dir-path', (v) => v as String?),
@@ -48,36 +50,10 @@ Configuration _$ConfigurationFromJson(Map json) => $checkedCreate(
 
 Map<String, dynamic> _$ConfigurationToJson(Configuration instance) =>
     <String, dynamic>{
-      'project-type': _$ProjectTypeEnumMap[instance.projectType],
+      'project-type': _$ProjectTypeEnumMap[instance.projectType]!,
       'project-dir-path': instance.projectDirPath,
       'features': instance.features,
     };
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
 
 const _$ProjectTypeEnumMap = {
   ProjectType.flutter: 'flutter',

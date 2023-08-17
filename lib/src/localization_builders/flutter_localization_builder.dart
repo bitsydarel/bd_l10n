@@ -13,7 +13,7 @@ import 'package:bd_l10n/src/localization_builder.dart';
 import 'package:bd_l10n/src/name_formatter.dart';
 import 'package:bd_l10n/src/utils.dart';
 import 'package:io/io.dart';
-import 'package:path/path.dart' as path;
+import 'package:path/path.dart';
 
 /// [LocalizationBuilder] for flutter project.
 class FlutterLocalizationBuilder extends LocalizationBuilder {
@@ -39,6 +39,16 @@ class FlutterLocalizationBuilder extends LocalizationBuilder {
     final String localizationClassName =
         await nameFormatter.getLocalizationClassName(feature);
 
+    final String arbDirPath = join(
+      configuration.projectDirPath,
+      feature.translationDirPath,
+    );
+
+    final String outputDirPath = join(
+      configuration.projectDirPath,
+      feature.outputDirPath,
+    );
+
     final ProcessResult result = Process.runSync(
       'flutter',
       <String>[
@@ -48,10 +58,16 @@ class FlutterLocalizationBuilder extends LocalizationBuilder {
         '--template-arb-file',
         feature.translationTemplateFileName,
         '--arb-dir',
-        path.join(configuration.projectDirPath, feature.translationDirPath),
+        if (Directory(arbDirPath).existsSync())
+          arbDirPath
+        else
+          feature.translationDirPath,
         '--no-synthetic-package',
         '--output-dir',
-        path.join(configuration.projectDirPath, feature.outputDirPath),
+        if (Directory(outputDirPath).existsSync())
+          outputDirPath
+        else
+          feature.outputDirPath,
         '--output-localization-file',
         localizationFileName,
         '--output-class',

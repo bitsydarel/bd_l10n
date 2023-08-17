@@ -11,9 +11,9 @@ part 'feature_configuration.g.dart';
 
 /// Localization Feature Configuration.
 @JsonSerializable(
-  anyMap: true,
   disallowUnrecognizedKeys: true,
   checked: true,
+  anyMap: true,
 )
 class FeatureConfiguration {
   static final RegExp _nameValidator = RegExp(
@@ -105,7 +105,9 @@ class FeatureConfiguration {
   }
 
   /// Convert a [FeatureConfiguration] to json representation.
-  Map<Object?, Object?> toJson() => _$FeatureConfigurationToJson(this);
+  Map<String, Object?> toJson() {
+    return _$FeatureConfigurationToJson(this);
+  }
 
   @override
   String toString() {

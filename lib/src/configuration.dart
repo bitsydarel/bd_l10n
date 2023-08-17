@@ -82,43 +82,47 @@ class Configuration {
     }
 
     try {
-      final Object? parseYamlContent = loadYaml(
+      final Object? parseYamlContentRaw = loadYaml(
         yamlContent,
-        sourceUrl: Uri.parse(yamlPath),
+        sourceUrl: Uri.tryParse(yamlPath),
       );
 
-      final Configuration configuration = Configuration.fromJson(
-        parseYamlContent is Map<Object?, Object?>
-            ? parseYamlContent
-            : throw ArgumentError('Config file content is invalid'),
-      );
+      if (parseYamlContentRaw is! Map<Object?, Object?>) {
+        throw ArgumentError('Config file content is invalid');
+      }
+
+      final Configuration configuration =
+          Configuration.fromJson(parseYamlContentRaw);
 
       return Configuration(
         projectType: configuration.projectType,
         features: configuration.features,
         projectDirPath: projectDirPath ?? configuration.projectDirPath,
       );
-    } on CheckedFromJsonException catch (e) {
+    } on CheckedFromJsonException catch (e, stackTrace) {
       final List<String> errorMessage = <String>[
         if (e.className != null) 'Could not create `${e.className}`.',
         if (e.key != null) 'There is a problem with "${e.key}".',
         if (e.message != null) e.message!
       ];
 
-      throw ArgumentError(errorMessage.join('\n'));
+      throw ArgumentError(
+        "${errorMessage.join('\n')}\n${stackTrace.toString()}",
+      );
     } on YamlException catch (e) {
       throw ArgumentError(e.message);
     }
   }
 
-//
   /// Create [Configuration] from [json] representation.
   factory Configuration.fromJson(Map<Object?, Object?> json) {
     return _$ConfigurationFromJson(json);
   }
 
   /// Convert [Configuration] to a json representation.
-  Map<Object?, Object?> toJson() => _$ConfigurationToJson(this);
+  Map<String, dynamic> toJson() {
+    return _$ConfigurationToJson(this);
+  }
 
   @override
   String toString() {
