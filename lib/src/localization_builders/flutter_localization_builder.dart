@@ -49,6 +49,13 @@ class FlutterLocalizationBuilder extends LocalizationBuilder {
       feature.outputDirPath,
     );
 
+    final String featureName = localizationFileName.replaceAll('.dart', '');
+
+    final String untranslatedMessageFilePath = join(
+      configuration.projectDirPath,
+      'bd_l10n_${featureName}_untranslated_messages.json',
+    );
+
     final ProcessResult result = Process.runSync(
       'flutter',
       <String>[
@@ -72,7 +79,9 @@ class FlutterLocalizationBuilder extends LocalizationBuilder {
         localizationFileName,
         '--output-class',
         localizationClassName,
-        if (feature.useDeferredLoading) '--use-deferred-loading'
+        if (feature.useDeferredLoading) '--use-deferred-loading',
+        '--untranslated-messages-file',
+        untranslatedMessageFilePath,
       ],
       runInShell: Platform.isWindows,
     );
@@ -88,5 +97,11 @@ class FlutterLocalizationBuilder extends LocalizationBuilder {
     }
 
     stdout.writeln(outputMessage + errorMessage);
+
+    final File untranslatedMessageFile = File(untranslatedMessageFilePath);
+
+    if (untranslatedMessageFile.readAsStringSync() == '{}') {
+      untranslatedMessageFile.deleteSync();
+    }
   }
 }

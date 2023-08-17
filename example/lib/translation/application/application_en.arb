@@ -20,5 +20,11 @@
     "description": "The increment button text",
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "unTranslatedMessage": "Hey, i'm here to showcase messages that are not translated",
+    "@incrementButton": {
+      "description": "Demo text, not used in the app",
+      "type": "text",
+      "placeholders": {}
+    }
 }

@@ -16,14 +16,14 @@ import 'application_feature_en.dart';
 import 'application_feature_es.dart';
 import 'application_feature_fr.dart';
 
-/// Callers can lookup localized strings with an instance of ApplicationFeature returned
-/// by `ApplicationFeature.of(context)`.
+/// Callers can lookup localized strings with an instance of ApplicationFeature
+/// returned by `ApplicationFeature.of(context)`.
 ///
 /// Applications need to include `ApplicationFeature.delegate()` in their app's
-/// localizationDelegates list, and the locales they support in the app's
-/// supportedLocales list. For example:
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
 ///
-/// ```
+/// ```dart
 /// import 'application/application_feature.dart';
 ///
 /// return MaterialApp(
@@ -38,14 +38,14 @@ import 'application_feature_fr.dart';
 /// Please make sure to update your pubspec.yaml to include the following
 /// packages:
 ///
-/// ```
+/// ```yaml
 /// dependencies:
 ///   # Internationalization support.
 ///   flutter_localizations:
 ///     sdk: flutter
 ///   intl: any # Use the pinned version from flutter_localizations
 ///
-///   # rest of dependencies
+///   # Rest of dependencies
 /// ```
 ///
 /// ## iOS Applications
@@ -73,8 +73,8 @@ abstract class ApplicationFeature {
 
   final String localeName;
 
-  static ApplicationFeature of(BuildContext context) {
-    return Localizations.of<ApplicationFeature>(context, ApplicationFeature)!;
+  static ApplicationFeature? of(BuildContext context) {
+    return Localizations.of<ApplicationFeature>(context, ApplicationFeature);
   }
 
   static const LocalizationsDelegate<ApplicationFeature> delegate =
@@ -117,11 +117,17 @@ abstract class ApplicationFeature {
   /// **'You have pushed the button this many times:'**
   String get homeDescription;
 
-  /// The increment button text
+  /// Demo text, not used in the app
   ///
   /// In en, this message translates to:
   /// **'Increment'**
   String get incrementButton;
+
+  /// No description provided for @unTranslatedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Hey, i\'m here to showcase messages that are not translated'**
+  String get unTranslatedMessage;
 }
 
 class _ApplicationFeatureDelegate
@@ -131,7 +137,7 @@ class _ApplicationFeatureDelegate
   @override
   Future<ApplicationFeature> load(Locale locale) {
     return SynchronousFuture<ApplicationFeature>(
-        _lookupApplicationFeature(locale));
+        lookupApplicationFeature(locale));
   }
 
   @override
@@ -142,8 +148,8 @@ class _ApplicationFeatureDelegate
   bool shouldReload(_ApplicationFeatureDelegate old) => false;
 }
 
-ApplicationFeature _lookupApplicationFeature(Locale locale) {
-// Lookup logic when only language code is specified.
+ApplicationFeature lookupApplicationFeature(Locale locale) {
+  // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
       return ApplicationFeatureEn();

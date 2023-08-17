@@ -14,14 +14,14 @@ import 'package:intl/intl.dart' as intl;
 
 import 'authentication_feature_en.dart';
 
-/// Callers can lookup localized strings with an instance of AuthenticationFeature returned
-/// by `AuthenticationFeature.of(context)`.
+/// Callers can lookup localized strings with an instance of AuthenticationFeature
+/// returned by `AuthenticationFeature.of(context)`.
 ///
 /// Applications need to include `AuthenticationFeature.delegate()` in their app's
-/// localizationDelegates list, and the locales they support in the app's
-/// supportedLocales list. For example:
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
 ///
-/// ```
+/// ```dart
 /// import 'authentication/authentication_feature.dart';
 ///
 /// return MaterialApp(
@@ -36,14 +36,14 @@ import 'authentication_feature_en.dart';
 /// Please make sure to update your pubspec.yaml to include the following
 /// packages:
 ///
-/// ```
+/// ```yaml
 /// dependencies:
 ///   # Internationalization support.
 ///   flutter_localizations:
 ///     sdk: flutter
 ///   intl: any # Use the pinned version from flutter_localizations
 ///
-///   # rest of dependencies
+///   # Rest of dependencies
 /// ```
 ///
 /// ## iOS Applications
@@ -71,9 +71,9 @@ abstract class AuthenticationFeature {
 
   final String localeName;
 
-  static AuthenticationFeature of(BuildContext context) {
+  static AuthenticationFeature? of(BuildContext context) {
     return Localizations.of<AuthenticationFeature>(
-        context, AuthenticationFeature)!;
+        context, AuthenticationFeature);
   }
 
   static const LocalizationsDelegate<AuthenticationFeature> delegate =
@@ -126,7 +126,7 @@ class _AuthenticationFeatureDelegate
   @override
   Future<AuthenticationFeature> load(Locale locale) {
     return SynchronousFuture<AuthenticationFeature>(
-        _lookupAuthenticationFeature(locale));
+        lookupAuthenticationFeature(locale));
   }
 
   @override
@@ -137,8 +137,8 @@ class _AuthenticationFeatureDelegate
   bool shouldReload(_AuthenticationFeatureDelegate old) => false;
 }
 
-AuthenticationFeature _lookupAuthenticationFeature(Locale locale) {
-// Lookup logic when only language code is specified.
+AuthenticationFeature lookupAuthenticationFeature(Locale locale) {
+  // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
       return AuthenticationFeatureEn();

@@ -18,3 +18,7 @@
 
 - Added support for dart 3.0.0
 - Added support for translation in lib folder.
+
+## 1.4.0
+
+- Added support for untranslated message report
