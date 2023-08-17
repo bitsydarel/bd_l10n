@@ -13,9 +13,8 @@ import 'package:bd_l10n/src/feature_configuration.dart';
 import 'package:bd_l10n/src/localization_watcher.dart';
 import 'package:bd_l10n/src/utils.dart';
 import 'package:io/io.dart';
-import 'package:meta/meta.dart';
-import 'package:watcher/watcher.dart';
 import 'package:path/path.dart' as path;
+import 'package:watcher/watcher.dart';
 
 const Duration _pollingDuration = Duration(minutes: 1);
 const String _lockFileExtension = '.lock';
@@ -44,14 +43,11 @@ class FileLocalizationWatcher extends LocalizationWatcher {
   ///
   /// [lockFileName] to use as lock.
   FileLocalizationWatcher({
-    @required this.configFileLocation,
-    @required Configuration configuration,
-    @required DateTime startedAt,
-    String lockFileName,
-  })  : assert(configFileLocation != null, "configFileLocation can't be null"),
-        assert(configuration != null, "configuration can't be null"),
-        assert(startedAt != null, "startedAt can't be null"),
-        _lockFileName = lockFileName ??
+    required this.configFileLocation,
+    required Configuration configuration,
+    required DateTime startedAt,
+    String? lockFileName,
+  })  : _lockFileName = lockFileName ??
             '.${utilityName}_'
                 '${startedAt.millisecondsSinceEpoch}$_lockFileExtension',
         super(configuration);
@@ -84,9 +80,11 @@ class FileLocalizationWatcher extends LocalizationWatcher {
     _writeToFile(lockFile, 'Watching file $configFileLocation');
 
     for (final FeatureConfiguration feature in configuration.features) {
-      final String dirFullPath = path.canonicalize(feature.translationDirPath);
+      final String dirFullPath =
+          path.join(configuration.projectDirPath, feature.translationDirPath);
 
-      final String fileFullPath = path.canonicalize(
+      final String fileFullPath = path.join(
+        configuration.projectDirPath,
         feature.translationTemplateFileName,
       );
 
@@ -252,7 +250,7 @@ class FileLocalizationWatcher extends LocalizationWatcher {
   }
 
   void _onDeleteEvent(final String watchedPath, final WatchEvent event) {
-    final StreamSubscription<WatchEvent> watcher = _watcherTracker.remove(
+    final StreamSubscription<WatchEvent>? watcher = _watcherTracker.remove(
       watchedPath,
     );
 

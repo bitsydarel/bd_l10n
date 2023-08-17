@@ -7,21 +7,19 @@
 
 import 'dart:io';
 
+import 'package:bd_l10n/src/feature_configuration.dart';
 import 'package:bd_l10n/src/utils.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
-import 'package:yaml/yaml.dart';
 import 'package:path/path.dart' as path;
-import 'package:bd_l10n/src/feature_configuration.dart';
+import 'package:yaml/yaml.dart';
 
 part 'configuration.g.dart';
 
 /// BD L10n configuration representation.
 @JsonSerializable(
-  anyMap: true,
   disallowUnrecognizedKeys: true,
   checked: true,
-  nullable: false,
+  anyMap: true,
 )
 class Configuration {
   /// Project type that [utilityName] is being used for.
@@ -39,19 +37,11 @@ class Configuration {
   /// Create a [Configuration] with the [projectType] list of [features] and
   /// [projectDirPath].
   Configuration({
-    @required this.projectType,
-    @required this.features,
-    String projectDirPath,
+    required this.projectType,
+    required this.features,
+    String? projectDirPath,
   }) : projectDirPath = projectDirPath ?? Directory.current.path {
-    if (projectType == null) {
-      throw ArgumentError.value(
-        projectType,
-        'project type',
-        'Need to be specified',
-      );
-    }
-
-    if (this.projectDirPath == null || this.projectDirPath.isEmpty == true) {
+    if (this.projectDirPath.isEmpty == true) {
       throw ArgumentError.value(
         projectDirPath,
         'Project dir path',
@@ -59,7 +49,7 @@ class Configuration {
       );
     }
 
-    if (features == null || features.isEmpty == true) {
+    if (features.isEmpty == true) {
       throw ArgumentError.value(
         features,
         'features',
@@ -71,7 +61,7 @@ class Configuration {
   /// Create a [Configuration] from [yamlFile].
   factory Configuration.fromYaml(
     final File yamlFile, {
-    String projectDirPath,
+    String? projectDirPath,
   }) {
     final String yamlPath = yamlFile.path;
 
@@ -86,41 +76,47 @@ class Configuration {
     }
 
     try {
-      final Object parseYamlContent = loadYaml(
+      final Object? parseYamlContentRaw = loadYaml(
         yamlContent,
-        sourceUrl: yamlPath,
+        sourceUrl: Uri.tryParse(yamlPath),
       );
 
-      final Configuration configuration = Configuration.fromJson(
-        parseYamlContent is Map
-            ? parseYamlContent
-            : throw ArgumentError('Config file content is invalid'),
-      );
+      if (parseYamlContentRaw is! Map<Object?, Object?>) {
+        throw ArgumentError('Config file content is invalid');
+      }
+
+      final Configuration configuration =
+          Configuration.fromJson(parseYamlContentRaw);
 
       return Configuration(
         projectType: configuration.projectType,
         features: configuration.features,
         projectDirPath: projectDirPath ?? configuration.projectDirPath,
       );
-    } on CheckedFromJsonException catch (e) {
+    } on CheckedFromJsonException catch (e, stackTrace) {
       final List<String> errorMessage = <String>[
         if (e.className != null) 'Could not create `${e.className}`.',
         if (e.key != null) 'There is a problem with "${e.key}".',
-        if (e.message != null) e.message
+        if (e.message != null) e.message!
       ];
 
-      throw ArgumentError(errorMessage.join('\n'));
+      throw ArgumentError(
+        "${errorMessage.join('\n')}\n${stackTrace.toString()}",
+      );
     } on YamlException catch (e) {
       throw ArgumentError(e.message);
     }
   }
 
   /// Create [Configuration] from [json] representation.
-  factory Configuration.fromJson(Map<Object, Object> json) =>
-      _$ConfigurationFromJson(json);
+  factory Configuration.fromJson(Map<Object?, Object?> json) {
+    return _$ConfigurationFromJson(json);
+  }
 
   /// Convert [Configuration] to a json representation.
-  Map<String, dynamic> toJson() => _$ConfigurationToJson(this);
+  Map<String, dynamic> toJson() {
+    return _$ConfigurationToJson(this);
+  }
 
   @override
   String toString() => 'Configuration: ${toJson()}';
