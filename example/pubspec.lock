@@ -190,6 +190,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_code_style:
+    dependency: "direct dev"
+    description:
+      name: flutter_code_style
+      sha256: "1db4a15982f7f8f65507186667ae88c0f78cd8add0ea454915c1d74a0a146c4b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   flutter_localizations:
     dependency: "direct main"
     description: flutter

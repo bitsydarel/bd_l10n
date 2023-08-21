@@ -1,6 +1,6 @@
 name: bd_l10n
 description: Tools that help manage localization for a dart/flutter application.
-version: 1.4.0
+version: 1.4.1
 homepage: https://github.com/bitsydarel/bd_l10n
 repository: https://github.com/bitsydarel/bd_l10n
 issue_tracker: https://github.com/bitsydarel/bd_l10n/issues
@@ -21,7 +21,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ">=2.0.0"
-  flutter_code_style: ^2.1.1 # project code style.
+  flutter_code_style: ^2.2.0 # project code style.
   json_serializable: ">=6.6.0" # create json conversion utility.
   test: ">=1.16.6"
 

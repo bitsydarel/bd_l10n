@@ -1,10 +1,3 @@
-/*
- * The Clear BSD License
- *
- * Copyright (c) 2021 Bitsy Darel
- * All rights reserved.
- */
-
 import 'authentication_feature.dart';
 
 /// The translations for English (`en`).

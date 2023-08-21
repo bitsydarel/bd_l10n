@@ -22,3 +22,7 @@
 ## 1.4.0
 
 - Added support for untranslated message report
+
+## 1.4.1
+
+- Make Localization class of method to return a not-null value.

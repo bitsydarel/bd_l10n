@@ -4,3 +4,4 @@ analyzer:
   exclude:
     - '**/*.g.dart'
     - 'example/**/*.dart'
+    - 'lib/localization/**/*.dart'
