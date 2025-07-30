@@ -94,7 +94,7 @@ class _MyHomePageState extends State<_MyHomePage> {
             const Text('Clicked: '),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),

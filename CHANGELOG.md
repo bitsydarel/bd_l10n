@@ -1,3 +1,10 @@
+## 1.5.0
+
+- Updated minimum Dart SDK requirement to 3.5.0.
+- Localization class now are formatted automatically with dart format.
+- Localization class now use named parameters for better readability.
+- Dependency versions updated for better compatibility and stability.
+
 ## 1.0.0
 
 - Initial stable release, with support for flutter localization, file watcher and more.

@@ -71,6 +71,8 @@ class FlutterLocalizationBuilder extends LocalizationBuilder {
           feature.translationDirPath,
         '--no-synthetic-package',
         '--no-nullable-getter',
+        '--format',
+        '--use-named-parameters',
         '--output-dir',
         if (Directory(outputDirPath).existsSync())
           outputDirPath

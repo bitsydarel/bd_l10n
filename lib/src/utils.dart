@@ -18,7 +18,6 @@ import 'package:bd_l10n/src/localization_watchers/file_localization_watcher.dart
 import 'package:bd_l10n/src/name_formatter.dart';
 import 'package:bd_l10n/src/name_formatters/camel_case_name_formatter.dart';
 import 'package:io/ansi.dart';
-import 'package:io/io.dart';
 
 /// Utility name
 const String utilityName = 'bd_l10n';
@@ -82,12 +81,7 @@ extension ConfigurationExtension on Configuration {
     switch (projectType) {
       case ProjectType.flutter:
         return FlutterLocalizationBuilder(this, nameFormatter);
-      default:
-        throw UnrecoverableException(
-          'Project type is unsupported: $projectType',
-          ExitCode.config.code,
-        );
-    }
+      }
   }
 
   /// Create the [LocalizationWatcher] matching the [Configuration] with the
