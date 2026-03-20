@@ -6,7 +6,7 @@ repository: https://github.com/bitsydarel/bd_l10n
 issue_tracker: https://github.com/bitsydarel/bd_l10n/issues
 
 environment:
-  sdk: '>=3.5.0 <4.0.0'
+  sdk: '>=3.8.0 <4.0.0'
 
 dependencies:
   args: ">=2.6.0 <3.0.0"

@@ -69,7 +69,6 @@ class FlutterLocalizationBuilder extends LocalizationBuilder {
           arbDirPath
         else
           feature.translationDirPath,
-        '--no-synthetic-package',
         '--no-nullable-getter',
         '--format',
         '--use-named-parameters',
